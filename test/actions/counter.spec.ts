@@ -1,5 +1,6 @@
 import { spy } from 'sinon';
 import * as actions from '../../app/actions/counter';
+import { ApplicationState } from '../../app/reducers/types';
 
 describe('actions', () => {
   it('should increment should create increment action', () => {
@@ -14,7 +15,7 @@ describe('actions', () => {
     const fn = actions.incrementIfOdd();
     expect(fn).toBeInstanceOf(Function);
     const dispatch = spy();
-    const getState = () => ({ counter: 1 });
+    const getState = () => ({ counter: 1 } as ApplicationState);
     fn(dispatch, getState);
     expect(dispatch.calledWith({ type: actions.INCREMENT_COUNTER })).toBe(true);
   });
@@ -22,7 +23,7 @@ describe('actions', () => {
   it('should incrementIfOdd shouldnt create increment action if counter is even', () => {
     const fn = actions.incrementIfOdd();
     const dispatch = spy();
-    const getState = () => ({ counter: 2 });
+    const getState = () => ({ counter: 2 } as ApplicationState);
     fn(dispatch, getState);
     expect(dispatch.called).toBe(false);
   });

@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions should fetch list of PRs in repo 1`] = `
+Array [
+  Object {
+    "author": Object {
+      "displayName": "Tom",
+      "email": "tom@example.com",
+      "id": 115026,
+      "name": "tom",
+    },
+    "createdDate": 1359075920,
+    "description": "It’s a kludge, but put the tuple from the database in the cache.",
+    "reviewers": Array [
+      Object {
+        "approved": true,
+        "lastReviewedCommit": "7549846524f8aed2bd1c0249993ae1bf9d3c9998",
+        "user": Object {
+          "displayName": "Jane Citizen",
+          "email": "jane@example.com",
+          "id": 101,
+          "name": "jcitizen",
+        },
+      },
+    ],
+    "title": "Talking Nerdy",
+    "updatedDate": 1359085920,
+  },
+]
+`;
+
+exports[`actions should fetch repos and pull requests 1`] = `
+Object {
+  "pullRequests": Array [
+    Object {
+      "author": Object {
+        "displayName": "Tom",
+        "email": "tom@example.com",
+        "id": 115026,
+        "name": "tom",
+      },
+      "createdDate": 1359075920,
+      "description": "It’s a kludge, but put the tuple from the database in the cache.",
+      "reviewers": Array [
+        Object {
+          "approved": true,
+          "lastReviewedCommit": "7549846524f8aed2bd1c0249993ae1bf9d3c9998",
+          "user": Object {
+            "displayName": "Jane Citizen",
+            "email": "jane@example.com",
+            "id": 101,
+            "name": "jcitizen",
+          },
+        },
+      ],
+      "title": "Talking Nerdy",
+      "updatedDate": 1359085920,
+    },
+    Object {
+      "author": Object {
+        "displayName": "Tom",
+        "email": "tom@example.com",
+        "id": 115026,
+        "name": "tom",
+      },
+      "createdDate": 1359075920,
+      "description": "It’s a kludge, but put the tuple from the database in the cache.",
+      "reviewers": Array [
+        Object {
+          "approved": true,
+          "lastReviewedCommit": "7549846524f8aed2bd1c0249993ae1bf9d3c9998",
+          "user": Object {
+            "displayName": "Jane Citizen",
+            "email": "jane@example.com",
+            "id": 101,
+            "name": "jcitizen",
+          },
+        },
+      ],
+      "title": "Second PR",
+      "updatedDate": 1359085920,
+    },
+  ],
+  "receivedAt": 1359075920,
+  "type": "RECEIVE_PULL_REQUESTS",
+}
+`;

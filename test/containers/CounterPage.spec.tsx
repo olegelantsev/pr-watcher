@@ -6,10 +6,11 @@ import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
 import CounterPage from '../../app/containers/CounterPage';
 import { configureStore } from '../../app/store/configureStore';
+import { ApplicationState } from '../../app/reducers/types';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-function setup(initialState = {}) {
+function setup(initialState = {} as ApplicationState) {
   const store = configureStore(initialState);
   const history = createBrowserHistory();
   const provider = (
@@ -53,7 +54,7 @@ describe('containers', () => {
     });
 
     it('should change if odd and if odd button clicked', () => {
-      const { buttons, p } = setup({ counter: 1 });
+      const { buttons, p } = setup({ counter: 1 } as ApplicationState);
       buttons.at(2).simulate('click');
       expect(p.text()).toMatch(/^2$/);
     });
