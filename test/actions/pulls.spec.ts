@@ -5,7 +5,10 @@ import * as repoResponse from './stubs/repos.json';
 import * as pullRequestsResponse from './stubs/pullRequests.json';
 import * as twoReposResponse from './stubs/repos2.json';
 import * as repo2PullRequestResponse from './stubs/repo2_pullRequests.json';
-import { REQUEST_PULL_REQUESTS, ApplicationState } from '../../app/reducers/types';
+import {
+  REQUEST_PULL_REQUESTS,
+  ApplicationState
+} from '../../app/reducers/types';
 
 describe('actions', () => {
   it('should fetch list of repo slugs', async () => {
