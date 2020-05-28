@@ -9,7 +9,8 @@ import {
 const initialState = {
   fetchInProgress: false,
   newPullRequests: 0,
-  prs: []
+  prs: [],
+  status: 'success'
 } as PullRequests;
 
 export default function pullRequests(
@@ -20,7 +21,10 @@ export default function pullRequests(
     case RECEIVE_PULL_REQUESTS:
       return {
         ...state,
-        fetchInProgress: false
+        fetchInProgress: false,
+        prs: action.pullRequests,
+        error: action.error,
+        status: action.status
       };
     case REQUEST_PULL_REQUESTS:
       return {

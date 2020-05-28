@@ -1,27 +1,19 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import PullRequestList from '../components/PullRequestList';
-import {
-  increment,
-  decrement,
-  incrementIfOdd,
-  incrementAsync
-} from '../actions/counter';
-import { counterStateType } from '../reducers/types';
+import { fetchAll } from '../actions/pullRequest';
+import { ApplicationState } from '../reducers/types';
 
-function mapStateToProps(state: counterStateType) {
+function mapStateToProps(state: ApplicationState) {
   return {
-    counter: state.counter
+    pullRequests: state.pullRequests
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      increment,
-      decrement,
-      incrementIfOdd,
-      incrementAsync
+      fetchAll
     },
     dispatch
   );

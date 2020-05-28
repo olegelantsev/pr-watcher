@@ -1,4 +1,5 @@
 import { Dispatch as ReduxDispatch, Store as ReduxStore, Action } from 'redux';
+import { type } from 'os';
 
 export const RECEIVE_PULL_REQUESTS = 'RECEIVE_PULL_REQUESTS';
 
@@ -50,6 +51,8 @@ export type PullRequests = {
   prs: Array<PullRequest>;
   newPullRequests: number; // for badge
   fetchInProgress: boolean;
+  error?: string;
+  status: 'error' | 'success';
 };
 
 export interface RequestPullRequestsAction {
@@ -60,6 +63,8 @@ export interface ReceivePullRequestsAction {
   type: typeof RECEIVE_PULL_REQUESTS;
   pullRequests: Array<PullRequest>;
   receivedAt: number;
+  status: 'error' | 'success';
+  error?: string;
 }
 
 export interface UpdateAccountSetting {

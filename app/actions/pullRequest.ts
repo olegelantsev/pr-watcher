@@ -58,12 +58,15 @@ function parseReviewers(reviewers: [any]) {
 }
 
 function receivePosts(
-  pullRequests: Array<PullRequest>
+  pullRequests: Array<PullRequest>,
+  error?: string
 ): ReceivePullRequestsAction {
   return {
     type: RECEIVE_PULL_REQUESTS,
     pullRequests,
-    receivedAt: Date.now()
+    receivedAt: Date.now(),
+    error,
+    status: error != null ? 'error' : 'success'
   };
 }
 
@@ -124,7 +127,7 @@ export function fetchAll() {
         return dispatch(receivePosts(pullRequests));
       })
       .catch(err => {
-        throw err;
+        dispatch(receivePosts([], String(err)));
       });
   };
 }
