@@ -5,6 +5,7 @@ import { hot } from 'react-hot-loader/root';
 import { History } from 'history';
 import { Store } from '../reducers/types';
 import Routes from '../Routes';
+import Heartbeat from './Heartbeat';
 
 type Props = {
   store: Store;
@@ -16,6 +17,7 @@ const Root = ({ store, history }: Props) => (
     <ConnectedRouter history={history}>
       <Routes />
     </ConnectedRouter>
+    <Heartbeat />
   </Provider>
 );
 
