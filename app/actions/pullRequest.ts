@@ -86,7 +86,9 @@ export async function fetchPullsRequests(
       createdDate: x.createdDate,
       updatedDate: x.updatedDate,
       author: convertUser(x.author.user),
-      reviewers: parseReviewers(x.reviewers)
+      reviewers: parseReviewers(x.reviewers),
+      link: x.links.self[0].href,
+      state: x.state
     } as PullRequest;
   });
 }
