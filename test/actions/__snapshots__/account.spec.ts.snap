@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`account actions checks account successfully 1`] = `
+Object {
+  "accountSetting": Object {
+    "projectSlug": "123",
+    "token": "some-token",
+    "url": "http://bitbucket.com",
+  },
+  "checking": false,
+  "error": undefined,
+  "type": "UPDATE_ACCOUNT",
+}
+`;
+
+exports[`account actions checks account with error 1`] = `
+Object {
+  "error": "Error: Server responded with 404",
+  "status": "error",
+  "type": "ACCOUNT_CHECK_ERROR",
+}
+`;
