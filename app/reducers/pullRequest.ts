@@ -57,7 +57,7 @@ export default function pullRequests(
       return {
         ...state,
         newPullRequests: 0
-      }
+      };
     default:
       return state;
   }

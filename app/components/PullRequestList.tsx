@@ -4,7 +4,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import { Button } from '@material-ui/core';
 import { PullRequests, PullRequest } from '../reducers/types';
 import styles from './PullRequestList.css';
@@ -98,18 +97,11 @@ type Props = {
   fetchAll: () => void;
 };
 
-let requested = 0;
-
 export default function Counter(props: Props) {
   const { pullRequests } = props;
   const { error } = pullRequests;
-  if (requested === 0) {
-    requested += 1;
-    props.fetchAll();
-  }
   if (error !== undefined) {
-    return <p>
-Error:{error}</p>;
+    return <p>Error:{error}</p>;
   }
 
   const elements = pullRequests.prs.map((x: PullRequest) => {
@@ -123,6 +115,10 @@ Error:{error}</p>;
   const loadFunc = () => {
     return elements;
   };
+
+  if (pullRequests.prs.length === 0) {
+    return <h2>No PRs found.</h2>;
+  }
 
   return (
     <div className={styles.container}>

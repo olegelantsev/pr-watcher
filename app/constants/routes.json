@@ -1,5 +1,6 @@
 {
   "HOME": "/",
   "COUNTER": "/counter",
-  "PULL_REQUESTS": "/prs"
+  "PULL_REQUESTS": "/prs",
+  "SETUP": "/setup"
 }

@@ -17,7 +17,7 @@ const Root = ({ store, history }: Props) => (
     <ConnectedRouter history={history}>
       <Routes />
     </ConnectedRouter>
-    <Heartbeat />
+    {/* <Heartbeat /> */}
   </Provider>
 );
 
