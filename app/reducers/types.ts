@@ -12,6 +12,8 @@ export const ACCOUNT_CHECK_IN_PROGRESS = 'ACCOUNT_CHECK_IN_PROGRESS';
 
 export const ACCOUNT_CHECK_ERROR = 'ACCOUNT_CHECK_ERROR';
 
+export const RESET_NEW_PR_COUNT = 'RESET_NEW_PR_COUNT';
+
 export type counterStateType = {
   counter: number;
 };
@@ -99,10 +101,15 @@ export interface CheckAndUpdateAccountSetting {
   accountSetting: AccountSetting;
 }
 
+export interface ResetNewPrCount {
+  type: typeof RESET_NEW_PR_COUNT;
+}
+
 export type PullRequestActions =
   | RequestPullRequestsAction
   | ReceivePullRequestsAction
-  | UpdateAccountSetting;
+  | UpdateAccountSetting
+  | ResetNewPrCount;
 
 export type GetState = () => ApplicationState;
 

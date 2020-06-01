@@ -8,7 +8,8 @@ import {
   AccountSetting,
   REQUEST_PULL_REQUESTS,
   RECEIVE_PULL_REQUESTS,
-  ReceivePullRequestsAction
+  ReceivePullRequestsAction,
+  RESET_NEW_PR_COUNT
 } from '../reducers/types';
 
 // https://docs.atlassian.com/bitbucket-server/rest/7.2.3/bitbucket-rest.html#idp281
@@ -55,7 +56,13 @@ function parseReviewers(reviewers: [any]) {
   });
 }
 
-function receivePosts(
+function resetNewPrCount() {
+  return {
+    type: RESET_NEW_PR_COUNT
+  };
+}
+
+function receivePullRequests(
   pullRequests: Array<PullRequest>,
   error?: string
 ): ReceivePullRequestsAction {
@@ -124,10 +131,10 @@ export function fetchAll() {
         return fetchPullRequestsAndMerge(repoSlugs, accountSetting);
       })
       .then((pullRequests: Array<PullRequest>) => {
-        return dispatch(receivePosts(pullRequests));
+        return dispatch(receivePullRequests(pullRequests));
       })
       .catch(err => {
-        dispatch(receivePosts([], String(err)));
+        dispatch(receivePullRequests([], String(err)));
       });
   };
 }

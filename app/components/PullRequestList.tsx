@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       margin: 'auto',
       maxWidth: 500,
-      backgroundColor: '#b68d6b',
-      borderRadius: '10px'
+      border: 0
     },
     image: {
       width: 128,
