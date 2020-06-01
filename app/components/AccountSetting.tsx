@@ -1,7 +1,5 @@
 import React from 'react';
-import { PullRequests, PullRequest } from '../reducers/types';
-
-const { shell } = require('electron');
+import { PullRequests } from '../reducers/types';
 
 type Props = {
   pullRequests: PullRequests;
@@ -9,6 +7,5 @@ type Props = {
 };
 
 export default function AccountSetting(props: Props) {
-  console.log('Account setting page');
   return <h2>Account setting page</h2>;
 }

@@ -1,9 +1,6 @@
 import React from 'react';
-import Hoc from './hoc';
-import PullRequestsPage from './PullRequestsPage';
-
-const Wrapped = Hoc(PullRequestsPage);
+import Home from '../components/Home';
 
 export default function HomePage() {
-  return <Wrapped />;
+  return <Home />;
 }
