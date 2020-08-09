@@ -101,7 +101,7 @@ export default function Counter(props: Props) {
   const { pullRequests } = props;
   const { error } = pullRequests;
   if (error !== undefined) {
-    return <p>Error:{error}</p>;
+    return <p>{error}</p>;
   }
 
   const elements = pullRequests.prs.map((x: PullRequest) => {
