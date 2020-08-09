@@ -7,7 +7,6 @@ import {
   AccountCheckProgress,
   ACCOUNT_CHECK_IN_PROGRESS,
   Dispatch,
-  GetState,
   ACCOUNT_CHECK_ERROR
 } from '../reducers/types';
 import { fetchRepoSlags } from './pullRequest';
@@ -48,7 +47,7 @@ async function checkAccount(accountSetting: AccountSetting): Promise<boolean> {
 }
 
 export function checkAndUpdateAccount(accountSetting: AccountSetting) {
-  return (dispatch: Dispatch, getState: GetState) => {
+  return (dispatch: Dispatch) => {
     dispatch(accountCheckInProgress());
 
     return checkAccount(accountSetting)
