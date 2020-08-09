@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { Diff } from 'utility-types';
 import { AccountSetting, ApplicationState } from '../reducers/types';
 
 function mapStateToProps(state: ApplicationState) {
@@ -13,10 +12,6 @@ function mapStateToProps(state: ApplicationState) {
 interface BaseProps extends RouteProps {
   accountSetting?: AccountSetting;
   children: JSX.Element;
-}
-
-interface InjectedProps {
-  accountSetting?: AccountSetting;
 }
 
 export const FCSpreadAttributes: React.FC<BaseProps> = props => {
