@@ -7,7 +7,8 @@ import * as twoReposResponse from './stubs/repos2.json';
 import * as repo2PullRequestResponse from './stubs/repo2_pullRequests.json';
 import {
   REQUEST_PULL_REQUESTS,
-  ApplicationState
+  ApplicationState,
+  AccountSetting
 } from '../../app/reducers/types';
 
 describe('actions', () => {
@@ -18,10 +19,11 @@ describe('actions', () => {
         'Access-Control-Allow-Origin': '*',
         'Content-type': 'application/json'
       });
-    const repoSlugs = await actions.fetchRepoSlags(
-      'http://bitbucket.com',
-      '123'
-    );
+    const repoSlugs = await actions.fetchRepoSlags({
+      url: 'http://bitbucket.com',
+      token: 'some-token',
+      projectSlug: '123'
+    } as AccountSetting);
     expect(repoSlugs.sort()).toEqual(['repo1']);
   });
 
@@ -81,6 +83,30 @@ describe('actions', () => {
         expect(dispatch.getCall(1).args[0]).toMatchSnapshot();
         resolve();
       }, 40);
+    });
+  });
+
+  it('should dispatch error if fetch fails', () => {
+    return new Promise(resolve => {
+      Date.now = jest.fn(() => 1359075920);
+      const fn = actions.fetchAll();
+      const dispatch = spy();
+      const getState = () =>
+        ({
+          accountSetting: {
+            projectSlug: 'projectname',
+            token: 'mytoken',
+            url: 'http://example.com'
+          }
+        } as ApplicationState);
+      fn(dispatch, getState);
+      setTimeout(() => {
+        const calls = dispatch.getCalls();
+        expect(calls.length).toBe(2);
+
+        expect(dispatch.getCall(1).args[0]).toMatchSnapshot();
+        resolve();
+      }, 1500);
     });
   });
 });

@@ -8,21 +8,10 @@ import {
   AccountSetting,
   REQUEST_PULL_REQUESTS,
   RECEIVE_PULL_REQUESTS,
-  ReceivePullRequestsAction,
-  UPDATE_ACCOUNT,
-  UpdateAccountSetting
+  ReceivePullRequestsAction
 } from '../reducers/types';
 
 // https://docs.atlassian.com/bitbucket-server/rest/7.2.3/bitbucket-rest.html#idp281
-
-export function updateAccount(
-  accountSetting: AccountSetting
-): UpdateAccountSetting {
-  return {
-    type: UPDATE_ACCOUNT,
-    accountSetting
-  };
-}
 
 export function requestPullRequests() {
   return {
@@ -30,10 +19,19 @@ export function requestPullRequests() {
   };
 }
 
-export async function fetchRepoSlags(baseUrl: string, projectKey: string) {
+export async function fetchRepoSlags(accountSetting: AccountSetting) {
   const response = await fetch(
-    `${baseUrl}/rest/api/1.0/projects/${projectKey}/repos`
+    `${accountSetting.url}/rest/api/1.0/projects/${accountSetting.projectSlug}/repos`,
+    {
+      method: 'get',
+      headers: new Headers({
+        Authorization: `Bearer ${accountSetting.token}`
+      })
+    }
   );
+  if (response.status >= 400) {
+    throw new Error(`Server responded with ${response.status}`);
+  }
   const data = await response.json();
   return data.values.map((x: any) => x.slug);
 }
@@ -57,13 +55,22 @@ function parseReviewers(reviewers: [any]) {
   });
 }
 
-function receivePosts(
-  pullRequests: Array<PullRequest>
+// function resetNewPrCount() {
+//   return {
+//     type: RESET_NEW_PR_COUNT
+//   };
+// }
+
+function receivePullRequests(
+  pullRequests: Array<PullRequest>,
+  error?: string
 ): ReceivePullRequestsAction {
   return {
     type: RECEIVE_PULL_REQUESTS,
     pullRequests,
-    receivedAt: Date.now()
+    receivedAt: Date.now(),
+    error,
+    status: error != null ? 'error' : 'success'
   };
 }
 
@@ -83,7 +90,9 @@ export async function fetchPullsRequests(
       createdDate: x.createdDate,
       updatedDate: x.updatedDate,
       author: convertUser(x.author.user),
-      reviewers: parseReviewers(x.reviewers)
+      reviewers: parseReviewers(x.reviewers),
+      link: x.links.self[0].href,
+      state: x.state
     } as PullRequest;
   });
 }
@@ -116,15 +125,15 @@ export function fetchAll() {
 
     dispatch(requestPullRequests());
 
-    return fetchRepoSlags(accountSetting.url, accountSetting.projectSlug)
+    return fetchRepoSlags(accountSetting)
       .then(repoSlugs => {
         return fetchPullRequestsAndMerge(repoSlugs, accountSetting);
       })
       .then((pullRequests: Array<PullRequest>) => {
-        return dispatch(receivePosts(pullRequests));
+        return dispatch(receivePullRequests(pullRequests));
       })
       .catch(err => {
-        throw err;
+        dispatch(receivePullRequests([], String(err)));
       });
   };
 }

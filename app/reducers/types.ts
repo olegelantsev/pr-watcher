@@ -6,6 +6,14 @@ export const REQUEST_PULL_REQUESTS = 'REQUEST_PULL_REQUESTS';
 
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 
+export const CHECK_AND_UPDATE_ACCOUNT = 'CHECK_AND_UPDATE_ACCOUNT';
+
+export const ACCOUNT_CHECK_IN_PROGRESS = 'ACCOUNT_CHECK_IN_PROGRESS';
+
+export const ACCOUNT_CHECK_ERROR = 'ACCOUNT_CHECK_ERROR';
+
+export const RESET_NEW_PR_COUNT = 'RESET_NEW_PR_COUNT';
+
 export type counterStateType = {
   counter: number;
 };
@@ -44,12 +52,16 @@ export type AccountSetting = {
   token: string;
   url: string;
   projectSlug: string;
+  checking: boolean;
+  error?: 'error' | 'success';
 };
 
 export type PullRequests = {
   prs: Array<PullRequest>;
   newPullRequests: number; // for badge
   fetchInProgress: boolean;
+  error?: string;
+  status: errorType;
 };
 
 export interface RequestPullRequestsAction {
@@ -60,17 +72,44 @@ export interface ReceivePullRequestsAction {
   type: typeof RECEIVE_PULL_REQUESTS;
   pullRequests: Array<PullRequest>;
   receivedAt: number;
+  status: errorType;
+  error?: string;
 }
+
+export type errorType = 'error' | 'success';
 
 export interface UpdateAccountSetting {
   type: typeof UPDATE_ACCOUNT;
   accountSetting: AccountSetting;
+  checking: boolean;
+  status?: errorType;
+  error?: string;
+}
+
+export interface AccountCheckProgress {
+  type: typeof ACCOUNT_CHECK_IN_PROGRESS;
+}
+
+export interface AccountCheckError {
+  type: typeof ACCOUNT_CHECK_ERROR;
+  status: errorType;
+  error: string;
+}
+
+export interface CheckAndUpdateAccountSetting {
+  type: typeof CHECK_AND_UPDATE_ACCOUNT;
+  accountSetting: AccountSetting;
+}
+
+export interface ResetNewPrCount {
+  type: typeof RESET_NEW_PR_COUNT;
 }
 
 export type PullRequestActions =
   | RequestPullRequestsAction
   | ReceivePullRequestsAction
-  | UpdateAccountSetting;
+  | UpdateAccountSetting
+  | ResetNewPrCount;
 
 export type GetState = () => ApplicationState;
 

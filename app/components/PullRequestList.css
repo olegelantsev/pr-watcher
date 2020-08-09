@@ -1,0 +1,9 @@
+.container {
+  overflow: scroll;
+  height: 100vh;
+  /* background-image: linear-gradient(#bc6c29, #463133); */
+}
+
+.item-container {
+  /* background-color: #b68d6b; */
+}
